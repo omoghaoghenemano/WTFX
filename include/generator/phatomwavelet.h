@@ -13,6 +13,7 @@ public:
     PhatomWavelet(int length);
     void generateWavelet();
     void print() const;
+    std::vector<double> getData();
 };
 }
 

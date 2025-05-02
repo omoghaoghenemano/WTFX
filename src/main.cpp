@@ -4,12 +4,8 @@
 using namespace generator; 
 
 int main() {
-    PhatomWavelet* wavelet = new PhatomWavelet(400); 
-    if (wavelet == nullptr) {
-        std::cerr << "Memory allocation failed!" << std::endl;
-        return 1;
-    }
-
+    PhatomWavelet* wavelet = new PhatomWavelet(32); 
+   
     wavelet->generateWavelet();
     wavelet->print();
   
