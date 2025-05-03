@@ -1,6 +1,5 @@
 #ifndef PHATOMWAVELET_H
 #define PHATOMWAVELET_H
-
 #include <vector>
 
 namespace generator {
