@@ -13,14 +13,17 @@ find_package(ITK REQUIRED)
 find_package(VTK
   COMPONENTS
   CommonColor
-  CommonCore
   FiltersSources
+  CommonDataModel
   RenderingCore
-)
+  RenderingVolume
+  RenderingVolumeOpenGL2
 
+)
 
 # Include directories
 include_directories(include)
+
 add_library(Generator STATIC
     src/generator/phatomwavelet.cpp
 )
