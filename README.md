@@ -1,6 +1,6 @@
 # WaveletRepresentation
 
-WaveletRepresentation is a C++ project that demonstrates the generation, transformation, and visualization of wavelet data using the Haar wavelet transform. The project leverages powerful libraries such as **VTK (Visualization Toolkit)** for 3D volume rendering and **ITK (Insight Segmentation and Registration Toolkit)** for image processing.
+WaveletRepresentation is a C++ project that demonstrates the generation, transformation, and visualization of wavelet data using the Haar wavelet transform. The project leverages powerful libraries such as **VTK (Visualization Toolkit)** for 3D volume rendering and **ITK (Insight Segmentation and Registration Toolkit)**  for image processing.
 
 ## Features
 
