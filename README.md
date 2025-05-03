@@ -54,5 +54,5 @@ The project depends on the following libraries:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/WaveletRepresentation.git
+   git clone https://github.com/omoghaoghenemano/WTFX.git
    cd WaveletRepresentation
