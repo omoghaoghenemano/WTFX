@@ -15,6 +15,8 @@ WaveletRepresentation is a C++ project that demonstrates the generation, transfo
 - **3D Volume Rendering**:
   - Visualizes wavelet-transformed data as a 3D volume using VTK.
   - Configurable color and opacity transfer functions for enhanced visualization.
+  - ![Screenshot 2025-05-04 at 09 49 00](https://github.com/user-attachments/assets/d3108729-9a6a-45e7-86eb-0e64212857b6)
+
 
 - **Integration with ITK**:
   - Uses ITK for image processing and conversion between ITK and VTK data structures.
