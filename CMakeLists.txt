@@ -28,6 +28,14 @@ add_library(Generator STATIC
     src/generator/phatomwavelet.cpp
 )
 
+add_library(Extraction STATIC
+ src/extraction/data_extraction.cc
+)
+
+add_library(Transformation STATIC
+ src/transformation/wavelet_transform.cc
+)
+
 add_library(ImagePreprocessing STATIC 
  src/image_processing/image_prepocessing.cpp
 )
@@ -35,20 +43,22 @@ add_library(ImagePreprocessing STATIC
 
 # Add the executable
 add_executable(WaveletRepresentation
-    src/main.cpp
+    src/main.cc
 )
+
 
 target_link_libraries(WaveletRepresentation
   PRIVATE
    ${VTK_LIBRARIES}
 )
 
-target_link_libraries(WaveletRepresentation PRIVATE ${VTK_LIBRARIES})
 
 target_link_libraries(WaveletRepresentation PRIVATE ${ITK_LIBRARIES})
 target_link_libraries(WaveletRepresentation PRIVATE ${VTK_LIBRARIES})
 
 target_link_libraries(ImagePreprocessing PRIVATE ${ITK_LIBRARIES})
+
+target_link_libraries(Extraction PRIVATE ${ITK_LIBRARIES})
 
 target_link_libraries(ImagePreprocessing PRIVATE Generator)
 
@@ -61,7 +71,7 @@ target_include_directories(ImagePreprocessing PRIVATE
     ${PROJECT_SOURCE_DIR}/src/include
 )
 # Link libraries
-target_link_libraries(WaveletRepresentation PRIVATE Generator ImagePreprocessing ${VTK_LIBRARIES} ${ITK_LIBRARIES})
+target_link_libraries(WaveletRepresentation PRIVATE Generator ImagePreprocessing Extraction Transformation ${VTK_LIBRARIES} ${ITK_LIBRARIES})
 
 
 vtk_module_autoinit(
