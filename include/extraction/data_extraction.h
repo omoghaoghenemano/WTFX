@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <array> // Required for std::array
 
 namespace extraction {
     class DataExtraction {
@@ -16,7 +17,13 @@ namespace extraction {
         DataExtraction(const std::string& data_path, DataType data_type);
         ~DataExtraction();
 
-        std::vector<float> ReadData();
+        struct VolumeData {
+            std::vector<float> voxelData; // Voxel data
+            std::array<int, 3> dimensions; // Dimensions: width, height, depth
+        };
+
+        VolumeData ReadData(); 
+
 
     private:
         std::string data_path_;

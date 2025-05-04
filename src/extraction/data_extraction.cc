@@ -1,13 +1,15 @@
 #include "extraction/data_extraction.h"
 #include <iostream>
 #include <fstream>
-#include <sstream> 
+#include <sstream>
 #include "itkImage.h"
 #include "itkImageSeriesReader.h"
 #include "itkGDCMImageIO.h"
 #include "itkGDCMSeriesFileNames.h"
 #include "itkNiftiImageIO.h"
 #include "itkImageFileReader.h"
+
+
 
 namespace extraction {
 
@@ -16,43 +18,16 @@ namespace extraction {
 
     DataExtraction::~DataExtraction() {}
 
-    std::vector<float> DataExtraction::ReadData() {
+    DataExtraction::VolumeData DataExtraction::ReadData() {
         switch (data_type_) {
             case DataType::PVM: {
-              throw std::runtime_error("PVM support not yet implemented.");
-        
-            };
+                throw std::runtime_error("PVM support not yet implemented.");
+            }
 
             case DataType::DSV: {
-                /* std::ifstream file(data_path_);
-                if (!file.is_open()) {
-                    throw std::runtime_error("Could not open file: " + data_path_);
-                }
-    
-                std::vector<float> data;
-                std::string line;
-    
-                // Read the file line by line
-                while (std::getline(file, line)) {
-                    std::stringstream ss(line);
-                    std::string value;
-    
-                    // Split the line by delimiter (e.g., comma)
-                    while (std::getline(ss, value, ',')) {
-                        try {
-                            // Attempt to convert the value to a float
-                            data.push_back(std::stof(value));
-                        } catch (const std::invalid_argument&) {
-                            // Skip non-numeric values
-                            std::cerr << "Warning: Skipping non-numeric value: " << value << std::endl;
-                            continue;
-                        }
-                    }
-                }
-    
-                return data; */
+                throw std::runtime_error("DSV support not yet implemented.");
             }
-            // DSV data type - requires the folder
+
             case DataType::DCM: {
                 using ImageType = itk::Image<float, 3>;
                 using ReaderType = itk::ImageSeriesReader<ImageType>;
@@ -80,9 +55,20 @@ namespace extraction {
                 }
 
                 ImageType::Pointer image = reader->GetOutput();
-                std::vector<float> data(image->GetBufferPointer(), image->GetBufferPointer() + image->GetBufferedRegion().GetNumberOfPixels());
-                
-                return data;
+
+                // Get the dimensions of the image
+                ImageType::RegionType region = image->GetBufferedRegion();
+                ImageType::SizeType size = region.GetSize();
+
+                std::array<int, 3> dimensions = {static_cast<int>(size[0]), static_cast<int>(size[1]), static_cast<int>(size[2])};
+
+                std::cout << "DICOM Image Dimensions: "
+                          << dimensions[0] << " x " << dimensions[1] << " x " << dimensions[2] << std::endl;
+
+                // Convert the image data to a vector
+                std::vector<float> voxelData(image->GetBufferPointer(), image->GetBufferPointer() + region.GetNumberOfPixels());
+
+                return {voxelData, dimensions};
             }
 
             case DataType::GZ: {
@@ -103,13 +89,24 @@ namespace extraction {
                 }
 
                 ImageType::Pointer image = reader->GetOutput();
-                std::vector<float> data(image->GetBufferPointer(), image->GetBufferPointer() + image->GetBufferedRegion().GetNumberOfPixels());
-                
-                return data;
+
+                // Get the dimensions of the image
+                ImageType::RegionType region = image->GetBufferedRegion();
+                ImageType::SizeType size = region.GetSize();
+
+                std::array<int, 3> dimensions = {static_cast<int>(size[0]), static_cast<int>(size[1]), static_cast<int>(size[2])};
+
+                std::cout << "NIfTI Image Dimensions: "
+                          << dimensions[0] << " x " << dimensions[1] << " x " << dimensions[2] << std::endl;
+
+                // Convert the image data to a vector
+                std::vector<float> voxelData(image->GetBufferPointer(), image->GetBufferPointer() + region.GetNumberOfPixels());
+
+                return {voxelData, dimensions};
             }
-            
+
             default:
                 throw std::runtime_error("Unsupported data type.");
         }
     }
-    }
+}
