@@ -4,10 +4,6 @@ WaveletRepresentation is a C++ project that demonstrates the generation, transfo
 
 ## Features
 
-- **Haar Wavelet Generation**:
-  - Generates Haar wavelet structures using the `PhatomWavelet` class.
-  - Supports customizable wavelet lengths.
-
 - **Haar Wavelet Transform**:
   - Implements the Haar wavelet transform to decompose data into low-frequency and high-frequency components.
   - Handles 1D data transformations.
